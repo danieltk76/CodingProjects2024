@@ -1,5 +1,12 @@
 package storage;
 
+/*
+ * @author Daniel Knight
+ * @version 2/25/2024
+ * 
+ * Class for DoubleArraySeq.
+ * 
+ */
 
 
 public class DoubleArraySeq implements Cloneable
@@ -9,6 +16,10 @@ public class DoubleArraySeq implements Cloneable
     private int manyItems;
     private int currentIndex;
 
+
+    /*
+     * No-arg for DoubleArraySeq.
+     */
     public DoubleArraySeq()
     {
         
@@ -16,6 +27,11 @@ public class DoubleArraySeq implements Cloneable
 
 
     }
+
+    /*
+    * One-arg for DoubleArraySeq.
+    * @param initialCapacity for DoubleArraySeq.
+    */
 
     public DoubleArraySeq(int initialCapacity)
     {
@@ -30,6 +46,11 @@ public class DoubleArraySeq implements Cloneable
 
 
     }
+
+    /*
+     * AddAdter method for DoubleArraySeq.
+     * @param elemet for addAfter method.
+     */
 
     public void addAfter(double element)
     {
@@ -65,6 +86,11 @@ public class DoubleArraySeq implements Cloneable
 
     }
 
+    /*
+     * @param element for addBefore method.
+     * Addbefore method for  DoubleArraySeq.
+     */
+
     public void addBefore(double element) 
     {
             if (manyItems == data.length)
@@ -99,6 +125,11 @@ public class DoubleArraySeq implements Cloneable
         
     }
 
+    /*
+     * AddAll method for DoubleArraySeq.
+     * @param addend for DoubleArraySeq.
+     */
+
     public void addAll(DoubleArraySeq addend)
     {
        
@@ -113,6 +144,10 @@ public class DoubleArraySeq implements Cloneable
         manyItems += addend.manyItems;
 
     }
+
+    /*
+     * TrimToSize method for DoubleArraySeq.
+     */
 
     public void trimToSize()
     {
@@ -130,6 +165,12 @@ public class DoubleArraySeq implements Cloneable
 
         }
     }
+
+    /*
+     * EnsureCapacity method for DoubleArraySeq.
+     * @param for ensureCapacity method.
+     * 
+     */
 
     public void ensureCapacity(int minimumCapacity)
     {
@@ -149,6 +190,10 @@ public class DoubleArraySeq implements Cloneable
 
     }
 
+    /*
+     * Start method for DoubleArraySeq.
+     * 
+     */
     public void start()
     {
         if (manyItems == 0)
@@ -162,6 +207,10 @@ public class DoubleArraySeq implements Cloneable
         }
 
     }
+    /*
+     * 
+     * Advance method for DoubleArraySeq.
+     */
 
     public void advance()
     {
@@ -188,6 +237,12 @@ public class DoubleArraySeq implements Cloneable
 
     }
 
+    /*
+     * GetCurrent method for DoubleArraySeq.
+     * 
+     * 
+     */
+
     public double getCurrent()
     {
         if (currentIndex >= 0 && currentIndex < manyItems)
@@ -202,6 +257,11 @@ public class DoubleArraySeq implements Cloneable
         
     }
 
+
+    /*
+     * RemoveCurrent method for DoubleArraySeq.
+     * 
+     */
     public void removeCurrent()
     {
         if (currentIndex < 0 || currentIndex >= manyItems)
@@ -224,24 +284,43 @@ public class DoubleArraySeq implements Cloneable
 
     }
 
+    /*
+     * 
+     * IsCurrent method for DoubleArraySeq.
+     */
     public boolean isCurrent()
     {
         return currentIndex >= 0 && currentIndex < manyItems;
 
     }
 
+
+    /*
+     * 
+     * GetCapacity method for DoubleArraySeq.
+     */
     public int getCapacity()
     {
         return data.length;
     
     }
 
+
+    /*
+     * 
+     * Size method for DoubleArraySeq.
+     */
     public int size()
     {
         return manyItems;
 
     }
 
+
+    /*
+     * 
+     * Clone method for DoubleArraySeq.
+     */
     public DoubleArraySeq clone() 
     {
 
@@ -260,6 +339,11 @@ public class DoubleArraySeq implements Cloneable
 
     }
 
+
+
+    /*
+     * ToString method for DoubleArraySeq.
+     */
     public String toString()
     {
 
@@ -290,6 +374,10 @@ public class DoubleArraySeq implements Cloneable
 
     }
 
+    /*
+     * Equals method for DoubleArraySeq.
+     * @param other for method Equals.
+     */
     public boolean equals(Object other)
     {
         if (!(other instanceof DoubleArraySeq))
@@ -313,6 +401,12 @@ public class DoubleArraySeq implements Cloneable
         return true;
     }
 
+    /*
+     * 
+     * Concatenation method for DoubleArraySeq.
+     * @param s1 for method concatenation.
+     * @param s2 for method concatenation.
+     */
     public static DoubleArraySeq concatenation(DoubleArraySeq s1, DoubleArraySeq s2) 
     {
 
