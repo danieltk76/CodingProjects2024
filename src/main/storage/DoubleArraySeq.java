@@ -4,11 +4,8 @@ package storage;
  * @author Daniel Knight
  * @version 2/25/2024
  * 
- * Class for DoubleArraySeq.
  * 
  */
-
-
 public class DoubleArraySeq implements Cloneable
 {
     public static final int DEFAULT_CAPACITY = 10;
@@ -29,10 +26,9 @@ public class DoubleArraySeq implements Cloneable
     }
 
     /*
-    * One-arg for DoubleArraySeq.
-    * @param initialCapacity for DoubleArraySeq.
-    */
-
+     * 
+     * @param initialCapacity for DoubleArraySeq.
+     */
     public DoubleArraySeq(int initialCapacity)
     {
         this.data = new double[initialCapacity];
@@ -47,17 +43,16 @@ public class DoubleArraySeq implements Cloneable
 
     }
 
-    /*
-     * AddAdter method for DoubleArraySeq.
-     * @param elemet for addAfter method.
+    
+    /** 
+     * @param element for addAfter method.
      */
-
     public void addAfter(double element)
     {
 
         if (manyItems == data.length)
         {
-            ensureCapacity(2*manyItems + 1);
+            ensureCapacity(2 * manyItems + 1);
 
         }
         
@@ -86,50 +81,48 @@ public class DoubleArraySeq implements Cloneable
 
     }
 
-    /*
+    
+    /** 
      * @param element for addBefore method.
-     * Addbefore method for  DoubleArraySeq.
      */
-
     public void addBefore(double element) 
     {
-            if (manyItems == data.length)
-            {
+        if (manyItems == data.length)
+        {
 
-                ensureCapacity(2 * manyItems + 1);
-            }
-        
-            if (manyItems == 0 || currentIndex == -1)
-            {
+            ensureCapacity((2 * manyItems) + 1);
+        }
 
-                data[0] = element;
-                currentIndex = 0;
-            }
-            else if (currentIndex == manyItems) 
+    
+        if (isCurrent())
+        {
+            for (int i = manyItems - 1; i >= currentIndex; i--)
             {
-                data[manyItems] = element;
-                currentIndex = manyItems;
+                data[i + 1] = data[i];
             }
-            else
-            {
-                for (int i = manyItems; i > currentIndex; i--)
-                {
-                    data[i] = data[i - 1];
-                }
-                data[currentIndex] = element;
-                
-            }
+            data[currentIndex] = element;
             manyItems++;
-        
+        }
 
-        
+        else
+        {
+
+            for (int i = manyItems - 1; i >= 0; i--)
+            {
+                data[i + 1] = data[i];
+            } 
+            data[0] = element; 
+            currentIndex = 0;
+            manyItems++;
+        }
+
+           
+                
     }
-
-    /*
-     * AddAll method for DoubleArraySeq.
-     * @param addend for DoubleArraySeq.
+    
+    /** 
+     * @param addend for addAll method.
      */
-
     public void addAll(DoubleArraySeq addend)
     {
        
@@ -146,9 +139,8 @@ public class DoubleArraySeq implements Cloneable
     }
 
     /*
-     * TrimToSize method for DoubleArraySeq.
+     * 
      */
-
     public void trimToSize()
     {
         if (data.length != manyItems)
@@ -166,12 +158,11 @@ public class DoubleArraySeq implements Cloneable
         }
     }
 
-    /*
-     * EnsureCapacity method for DoubleArraySeq.
-     * @param for ensureCapacity method.
+    
+    /** 
+     * @param minimumCapacity for ensureCapacity method.
      * 
      */
-
     public void ensureCapacity(int minimumCapacity)
     {
         if (data.length < minimumCapacity)
@@ -191,7 +182,6 @@ public class DoubleArraySeq implements Cloneable
     }
 
     /*
-     * Start method for DoubleArraySeq.
      * 
      */
     public void start()
@@ -208,10 +198,8 @@ public class DoubleArraySeq implements Cloneable
 
     }
     /*
-     * 
-     * Advance method for DoubleArraySeq.
+     *
      */
-
     public void advance()
     {
         if (currentIndex < -1 || currentIndex >= manyItems)
@@ -230,19 +218,15 @@ public class DoubleArraySeq implements Cloneable
 
         }
 
-    
-        
-       
-
 
     }
 
-    /*
-     * GetCurrent method for DoubleArraySeq.
+    
+    /** 
+     * @return double for getCurrent method.
      * 
      * 
      */
-
     public double getCurrent()
     {
         if (currentIndex >= 0 && currentIndex < manyItems)
@@ -257,36 +241,37 @@ public class DoubleArraySeq implements Cloneable
         
     }
 
-
     /*
-     * RemoveCurrent method for DoubleArraySeq.
+     * 
      * 
      */
-    public void removeCurrent()
+    public void removeCurrent() 
     {
-        if (currentIndex < 0 || currentIndex >= manyItems)
+        if (isCurrent())
         {
-            throw new IllegalStateException("no element to remove.");
+            for (int i = currentIndex; i < manyItems - 1; i++)
+            {
+                data[i] = data[i + 1];
+            }
+
+            manyItems--;
 
         }
 
-        for (int i = currentIndex; i < manyItems - 1; i++)
+        else
         {
-            data[i] = data[i + 1];
-        }
+            throw new IllegalStateException("Not da right state bro");
 
-        manyItems--;
+        } 
+        
 
-        if (currentIndex >= manyItems)
-        {
-            currentIndex = manyItems - 1;
-        }
+       
 
     }
 
-    /*
-     * 
-     * IsCurrent method for DoubleArraySeq.
+    
+    /** 
+     * @return boolean for isCurrent method.
      */
     public boolean isCurrent()
     {
@@ -295,9 +280,9 @@ public class DoubleArraySeq implements Cloneable
     }
 
 
-    /*
-     * 
-     * GetCapacity method for DoubleArraySeq.
+    
+    /** 
+     * @return int for getCapacity method.
      */
     public int getCapacity()
     {
@@ -306,9 +291,9 @@ public class DoubleArraySeq implements Cloneable
     }
 
 
-    /*
-     * 
-     * Size method for DoubleArraySeq.
+    
+    /** 
+     * @return int for size method.
      */
     public int size()
     {
@@ -317,14 +302,16 @@ public class DoubleArraySeq implements Cloneable
     }
 
 
-    /*
+    
+    /** 
      * 
-     * Clone method for DoubleArraySeq.
+     * @return DoubleArraySeq for clone method.
      */
     public DoubleArraySeq clone() 
     {
 
-        try{
+        try
+        {
             DoubleArraySeq cloner = (DoubleArraySeq) super.clone();
             cloner.data = this.data.clone();
             return cloner;
@@ -341,8 +328,9 @@ public class DoubleArraySeq implements Cloneable
 
 
 
-    /*
-     * ToString method for DoubleArraySeq.
+    
+    /** 
+     * @return String for toString method.
      */
     public String toString()
     {
@@ -374,9 +362,10 @@ public class DoubleArraySeq implements Cloneable
 
     }
 
-    /*
-     * Equals method for DoubleArraySeq.
-     * @param other for method Equals.
+    
+    /** 
+     * @param other for equals method.
+     * @return boolean for equals method.
      */
     public boolean equals(Object other)
     {
@@ -386,7 +375,8 @@ public class DoubleArraySeq implements Cloneable
         }
 
         DoubleArraySeq otherSeq = (DoubleArraySeq) other;
-        if (this.manyItems != otherSeq.manyItems || this.currentIndex != otherSeq.currentIndex)
+        if (this.manyItems != otherSeq.manyItems 
+            || this.currentIndex != otherSeq.currentIndex)
         {
             return false;
         }
@@ -401,13 +391,14 @@ public class DoubleArraySeq implements Cloneable
         return true;
     }
 
-    /*
-     * 
-     * Concatenation method for DoubleArraySeq.
-     * @param s1 for method concatenation.
-     * @param s2 for method concatenation.
+    
+    /** 
+     * @param s1 for DoubArraySeq method.
+     * @param s2 for DoubArraySeq method.
+     * @return DoubleArraySeq for concatenation method.
      */
-    public static DoubleArraySeq concatenation(DoubleArraySeq s1, DoubleArraySeq s2) 
+    public static DoubleArraySeq concatenation
+    (DoubleArraySeq s1, DoubleArraySeq s2) 
     {
 
         DoubleArraySeq res = new DoubleArraySeq(s1.manyItems + s2.manyItems);
