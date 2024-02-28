@@ -1,6 +1,6 @@
 package storage;
 
-/*
+/**
  * @author Daniel Knight
  * @version 2/25/2024
  * 
@@ -14,7 +14,7 @@ public class DoubleArraySeq implements Cloneable
     private int currentIndex;
 
 
-    /*
+    /**
      * No-arg for DoubleArraySeq.
      */
     public DoubleArraySeq()
@@ -25,7 +25,7 @@ public class DoubleArraySeq implements Cloneable
 
     }
 
-    /*
+    /**
      * 
      * @param initialCapacity for DoubleArraySeq.
      */
@@ -115,9 +115,7 @@ public class DoubleArraySeq implements Cloneable
             currentIndex = 0;
             manyItems++;
         }
-
-           
-                
+          
     }
     
     /** 
@@ -138,8 +136,8 @@ public class DoubleArraySeq implements Cloneable
 
     }
 
-    /*
-     * 
+    /**
+     * TrimtoSize method for class.
      */
     public void trimToSize()
     {
@@ -177,12 +175,10 @@ public class DoubleArraySeq implements Cloneable
             data = newData;
 
         }
-
-
     }
 
-    /*
-     * 
+    /**
+     * Start method for class.
      */
     public void start()
     {
@@ -197,8 +193,8 @@ public class DoubleArraySeq implements Cloneable
         }
 
     }
-    /*
-     *
+    /**
+     * Advance method for class.
      */
     public void advance()
     {
@@ -221,9 +217,8 @@ public class DoubleArraySeq implements Cloneable
 
     }
 
-    
     /** 
-     * @return double for getCurrent method.
+     * @return data[currentIndex] double for getCurrent method.
      * 
      * 
      */
@@ -240,9 +235,8 @@ public class DoubleArraySeq implements Cloneable
         }
         
     }
-
-    /*
-     * 
+    /**
+     * RemoveCurrent method for method.
      * 
      */
     public void removeCurrent() 
@@ -264,23 +258,15 @@ public class DoubleArraySeq implements Cloneable
 
         } 
         
-
-       
-
     }
-
-    
     /** 
-     * @return boolean for isCurrent method.
+     * @return data.length boolean for isCurrent method.
      */
     public boolean isCurrent()
     {
         return currentIndex >= 0 && currentIndex < manyItems;
 
     }
-
-
-    
     /** 
      * @return int for getCapacity method.
      */
@@ -289,23 +275,17 @@ public class DoubleArraySeq implements Cloneable
         return data.length;
     
     }
-
-
-    
     /** 
-     * @return int for size method.
+     * @return manyItems int for size method.
      */
     public int size()
     {
         return manyItems;
 
     }
-
-
-    
     /** 
      * 
-     * @return DoubleArraySeq for clone method.
+     * @return cloner DoubleArraySeq for clone method.
      */
     public DoubleArraySeq clone() 
     {
@@ -322,15 +302,9 @@ public class DoubleArraySeq implements Cloneable
             throw new AssertionError();
 
         }
-        
-
     }
-
-
-
-    
     /** 
-     * @return String for toString method.
+     * @return str String for toString method.
      */
     public String toString()
     {
@@ -354,18 +328,11 @@ public class DoubleArraySeq implements Cloneable
             
         }
         str += ">";
-        
-
         return str;
-        
-        
-
     }
-
-    
     /** 
      * @param other for equals method.
-     * @return boolean for equals method.
+     * @return true boolean for equals method.
      */
     public boolean equals(Object other)
     {
@@ -373,7 +340,6 @@ public class DoubleArraySeq implements Cloneable
         {
             return false;
         }
-
         DoubleArraySeq otherSeq = (DoubleArraySeq) other;
         if (this.manyItems != otherSeq.manyItems 
             || this.currentIndex != otherSeq.currentIndex)
@@ -390,15 +356,13 @@ public class DoubleArraySeq implements Cloneable
         }
         return true;
     }
-
-    
     /** 
      * @param s1 for DoubArraySeq method.
      * @param s2 for DoubArraySeq method.
-     * @return DoubleArraySeq for concatenation method.
+     * @return res for concatenation method.
      */
-    public static DoubleArraySeq concatenation
-    (DoubleArraySeq s1, DoubleArraySeq s2) 
+    public static DoubleArraySeq concatenation(DoubleArraySeq s1, 
+                                                DoubleArraySeq s2) 
     {
 
         DoubleArraySeq res = new DoubleArraySeq(s1.manyItems + s2.manyItems);
