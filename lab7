@@ -1,0 +1,436 @@
+package storage;
+/**
+ * @author Daniel Knight
+ * @version 3/20/2024
+ * 
+ */
+
+public class DoubleLinkedSeq implements Cloneable
+{
+    private int manyNodes;
+    private DoubleNode tail;
+    private DoubleNode head;
+    private DoubleNode precursor;
+    private DoubleNode cursor;
+
+
+    /**
+     * No-Arg for DoubleLinkedSeq.
+     */
+    public DoubleLinkedSeq()
+    {
+        // for note: precursor means element before current index
+        // cursor means current index
+        // head is first node
+        // tail is the last node
+        // link for next node in seq
+        this.manyNodes = 0;
+        this.tail = null;
+        this.head = null;
+        this.precursor = null;
+        this.cursor = null;
+
+    }
+
+
+    /**
+     * 
+     * @return manyNodes.
+     */
+    public int size()
+    {
+        return manyNodes;
+
+    }
+
+    /**
+     * 
+     * @param data for addAfter.
+     */
+    public void addAfter(double data)
+    {
+        DoubleNode newNode = new DoubleNode(data);
+
+        if (head == null)
+        {
+            head = newNode;
+            tail = newNode;
+            cursor = newNode;
+
+        }
+        else if (cursor == null)
+        {
+            tail.link = newNode;
+            tail = newNode;
+            cursor = newNode;
+
+        }
+        else
+        {
+            newNode.link = cursor.link;
+            cursor.link = newNode;
+            if (cursor == tail)
+            {
+                tail = newNode;
+
+            }
+            
+        }
+        cursor = newNode;
+
+        manyNodes++;
+
+       
+
+
+    }
+
+
+    /**
+     * 
+     * @param data for addBefore.
+     */
+    public void addBefore(double data)
+    {
+
+        DoubleNode newNode = new DoubleNode(data);
+
+        if (head == null)
+        {
+            head = newNode;
+            tail = newNode;
+        }
+        else if (cursor == null || cursor == head)
+        {
+            newNode.link = head;
+            head = newNode;
+
+        }
+
+        else
+        {
+            DoubleNode current = head;
+            while (current.link != cursor)
+            {
+                current = current.link;
+
+            }
+            newNode.link = cursor;
+            current.link = newNode;
+        }
+
+
+        cursor = newNode;
+        manyNodes++;
+
+
+    }
+
+
+    /**
+     * 
+     * @param addend for addAll.
+     */
+    public void addAll(DoubleLinkedSeq addend)
+    {
+        
+
+        if (this == addend)
+        {
+            addend = addend.clone();
+        }
+        
+        if (addend.head == null)
+        {
+            return;
+        }
+
+        if (this.head == null)
+        {
+            this.head = addend.head;
+            this.tail = addend.tail;
+
+        }
+
+        else
+        {
+            this.tail.link = addend.head;
+            this.tail = addend.tail;
+
+        }
+
+        this.manyNodes += addend.manyNodes;
+
+    }
+
+
+    /**
+     * 
+     * @return false for isCurrent.
+     */
+    public boolean isCurrent()
+    {
+        return cursor != null;
+
+    }
+
+    /**
+     * Start method for DoubleLinkedSeq.
+     */
+    public void start()
+    {
+        
+        if (manyNodes == 0)
+        {
+            cursor = null;
+
+        }
+        else
+        {
+            cursor = head;
+
+        }
+
+    }
+
+    /**
+     * Advance method for DoubleLinkedSeq.
+     */
+    public void advance()
+    {
+        if (cursor == null)
+        {
+            throw new IllegalStateException("No current element.");
+        }
+        precursor = cursor;
+        cursor = cursor.link;
+
+    }
+
+    /**
+     * 
+     * @return cursor.getData() for getCurrent().
+     */
+    public double getCurrent()
+    {
+       
+        if (cursor == null)
+        {
+            throw new IllegalStateException("No current element.");
+        }
+        return cursor.getData();
+
+        
+
+    }
+
+    /**
+     * RemoveCurrent method for DoubleLinkedSeq.
+     */
+    public void removeCurrent()
+    {
+        if (cursor == null)
+        {
+            throw new IllegalStateException("No current element.");
+        }
+        if (cursor == head)
+        {
+            head = head.link;
+            if (head == null)
+            {
+                tail = null;
+            }
+            cursor = head;
+            precursor = null;
+
+        }
+        else 
+        {
+            precursor.link = cursor.link;
+            if (cursor == tail)
+            {
+                tail = precursor;
+                cursor = null;
+
+            }
+            else
+            {
+                cursor = cursor.link;
+
+            }
+        }
+
+        manyNodes--;
+
+
+
+    }
+
+
+    /**
+     * @return DoubleLinkedSeq for class.
+     */
+    public DoubleLinkedSeq clone()
+    {
+        DoubleLinkedSeq copySeq = new DoubleLinkedSeq();
+        DoubleNode current = this.head;
+
+        while (current != null)
+        {
+            DoubleNode newNode = new DoubleNode(current.getData(), null);
+            if (copySeq.head == null)
+            {
+                copySeq.head = newNode;
+                copySeq.tail = newNode;
+
+            }
+            else
+            {
+                copySeq.tail.link = newNode;
+                copySeq.tail = newNode;
+
+            }
+
+            if (this.cursor == current)
+            {
+                copySeq.cursor = newNode;
+            }
+
+
+            current = current.link;
+            copySeq.manyNodes++;
+        }
+
+        return copySeq;
+
+    }
+
+    /**
+     * @return result for DoubleLinkedSeq.
+     */
+    public String toString()
+    {
+        String result = "<";
+        DoubleNode current = head;
+
+        while (current != null)
+        {
+            if (current == cursor)
+            {
+                result += "[" + current.getData() + "]";
+
+            }
+            else
+            {
+                result += current.getData();
+            }
+
+            if (current.link != null)
+            {
+                result += ", ";
+            }
+            current = current.link;
+
+        }
+        result += ">";
+        return result;
+
+    }
+
+    /**
+     * @return boolean for equals method.
+     * @param other for equals method.
+     */
+    public boolean equals(Object other) 
+    {
+        if (!(other instanceof DoubleLinkedSeq)) 
+        {
+            return false;
+        }
+    
+        DoubleLinkedSeq otherSeq = (DoubleLinkedSeq) other;
+    
+        if (this.manyNodes != otherSeq.manyNodes) 
+        {
+            return false;
+        }
+    
+        DoubleNode thisCurrent = this.head;
+        DoubleNode otherCurrent = otherSeq.head;
+        DoubleNode thisCursor = this.cursor;
+        DoubleNode otherCursor = otherSeq.cursor;
+    
+        while (thisCurrent != null && otherCurrent != null) 
+        {
+            if (thisCurrent.getData() != otherCurrent.getData()) 
+            {
+                return false;
+            }
+           
+            if ((thisCursor == thisCurrent && otherCursor != otherCurrent) 
+                || (thisCursor != thisCurrent && otherCursor == otherCurrent)) 
+            {
+                return false;
+            }
+            thisCurrent = thisCurrent.link;
+            otherCurrent = otherCurrent.link;
+            
+            if (thisCursor == thisCurrent) 
+            {
+                thisCursor = (thisCursor == null) ? null : thisCursor.link;
+            }
+            if (otherCursor == otherCurrent) 
+            {
+                otherCursor = (otherCursor == null) ? null : otherCursor.link;
+            }
+        }
+    
+        
+        return !((thisCursor == null && otherCursor != null) || 
+            (thisCursor != null && otherCursor == null));
+
+
+    }
+    
+    /**
+     * 
+     * @param s1 for DoubleLinkedSeq.
+     * @param s2 for DoubleLinkedSeq.
+     * @return DoubleLinkedSeq for class.
+     */
+    public static DoubleLinkedSeq concatenation(
+        DoubleLinkedSeq s1, DoubleLinkedSeq s2)
+    {
+        DoubleLinkedSeq resultSeq = new DoubleLinkedSeq();
+
+        DoubleNode current = s1.head;
+        while (current != null)
+        {
+            resultSeq.addAfter(current.getData());
+
+            resultSeq.advance();
+            current = current.link;
+
+        }
+
+        current = s2.head;
+        while (current != null)
+        {
+            resultSeq.addAfter(current.getData());
+
+            resultSeq.advance();
+            current = current.link;
+
+        }
+        resultSeq.cursor = null;
+        return resultSeq;
+        
+
+        
+
+    }
+
+
+    
+}
+
